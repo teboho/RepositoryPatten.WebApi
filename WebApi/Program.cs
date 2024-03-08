@@ -1,6 +1,7 @@
 
 using DataAccess.EFCore;
 using DataAccess.EFCore.Repositories;
+using DataAccess.EFCore.UnitOfWork;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +28,7 @@ namespace WebApi
             builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddTransient<IDeveloperRepository, DeveloperRepository>();
             builder.Services.AddTransient<IProjectRepository, ProjectRepository>();
+            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
             #endregion
 
             builder.Services.AddControllers();
