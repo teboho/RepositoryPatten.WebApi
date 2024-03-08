@@ -1,4 +1,7 @@
 
+using DataAccess.EFCore;
+using Microsoft.EntityFrameworkCore;
+
 namespace WebApi
 {
     public class Program
@@ -8,6 +11,13 @@ namespace WebApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            //--registering the db context class
+            builder.Services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection"),
+                    dbContextOptions => dbContextOptions.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)
+                )
+            );
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
